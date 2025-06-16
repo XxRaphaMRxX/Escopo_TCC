@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -16,51 +17,49 @@
             <div class="content">
                 <h1>REFRIGERIUM</h1>
                 <p>Qual o impacto do asfalto que pisamos na temperatura da nossa cidade?</p>
-                <div class="scroll-indicator">
-                    <span>Role para descobrir</span>
-                    <div class="arrow">↓</div>
+                <div class="scroll-indicator"><span>Role para descobrir</span><div class="arrow">↓</div></div>
+            </div>
+        </section>
+
+        <section id="contexto" class="hidden">
+            <div class="content">
+                <h2>Nossa Missão</h2>
+                <p class="subtitle">Entenda a ideia por trás do projeto REFRIGERIUM.</p>
+                <div class="context-card">
+                    <p>As cidades estão cada vez mais quentes, um fenômeno conhecido como <strong>"Ilhas de Calor Urbanas"</strong>. Em Rio Claro, o asfalto escuro da movimentada Avenida Visconde do Rio Claro absorve o calor solar, elevando perigosamente a temperatura da superfície.</p>
+                    <p>Inspirado por soluções como o projeto europeu <strong>"Life Heatland"</strong>, o REFRIGERIUM busca conscientizar a população sobre este problema. Através de medições reais e simulações, demonstramos de forma visual e interativa como uma tecnologia simples, o <strong>asfalto refletivo</strong>, poderia criar um ambiente urbano mais fresco e sustentável para todos.</p>
                 </div>
             </div>
         </section>
 
-        <section id="arborizado" class="hidden">
+        <section id="analise-dados" class="hidden">
             <div class="content">
-                <h2>O Oásis Urbano: O Poder das Árvores</h2>
-                <p class="subtitle">Analisamos um ponto da Av. Visconde do Rio Claro protegido pela sombra.</p>
-                <div class="data-container">
-                    <div class="gallery">
-                        <img src="sat_arborizada.png" alt="Vista de satélite da área arborizada">
-                        <img src="term_arborizada.png" alt="Termômetro mostrando temperatura baixa">
-                    </div>
+                <h2>Análise Comparativa das Medições</h2>
+                <p class="subtitle">Coletamos dados por 5 dias em dois pontos da avenida. Selecione um dia para ver os resultados.</p>
+                
+                <div class="day-selector">
+                    <button class="day-btn active" data-day="0">Dia 1</button>
+                    <button class="day-btn" data-day="1">Dia 2</button>
+                    <button class="day-btn" data-day="2">Dia 3</button>
+                    <button class="day-btn" data-day="3">Dia 4</button>
+                    <button class="day-btn" data-day="4">Dia 5</button>
+                </div>
+
+                <div class="data-display-grid">
                     <div class="data-card">
-                        <h3>Medição em Ambiente Arborizado</h3>
-                        <p><strong>Data do Teste:</strong> [Inserir Data]</p>
-                        <p><strong>Condição:</strong> Dia Quente e Ensolarado</p>
+                        <h3><span class="tree-icon">🌳</span> Ambiente Arborizado</h3>
+                        <p><strong>Data:</strong> <span id="data-arborizado">[Data]</span></p>
                         <div class="temperature-display cool">
                             <span class="label">Temperatura da Superfície</span>
-                            <span class="value">35°C</span>
+                            <span class="value" id="temp-arborizado">--°C</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="problema" class="hidden">
-            <div class="content">
-                <h2>A Ilha de Calor: O Asfalto Sob o Sol</h2>
-                <p class="subtitle">Agora, veja o que acontece em um trecho sem arborização na mesma avenida.</p>
-                <div class="data-container reverse">
-                     <div class="gallery">
-                        <img src="sat_nao_arborizado.png" alt="Vista de satélite da área exposta">
-                        <img src="term_nao_arborizado.png" alt="Termômetro mostrando temperatura alta">
-                    </div>
                     <div class="data-card">
-                        <h3>Medição em Ambiente Exposto</h3>
-                        <p><strong>Data do Teste:</strong> [Inserir Data]</p>
-                        <p><strong>Condição:</strong> Dia Quente e Ensolarado</p>
+                        <h3><span class="sun-icon">☀️</span> Ambiente Exposto</h3>
+                        <p><strong>Data:</strong> <span id="data-exposto">[Data]</span></p>
                         <div class="temperature-display hot">
                             <span class="label">Temperatura da Superfície</span>
-                            <span class="value">59°C</span>
+                            <span class="value" id="temp-exposto">--°C</span>
                         </div>
                     </div>
                 </div>
@@ -69,20 +68,19 @@
 
         <section id="solucao" class="hidden">
              <div class="content">
-                <h2>A Solução: Asfalto Refletivo</h2>
-                <p class="subtitle">Existe uma tecnologia capaz de diminuir drasticamente este calor. Aqui mostramos a simulação.</p>
+                <h2>Visualizando os Dados e a Solução</h2>
+                <p class="subtitle">Gráficos para entender as tendências e o impacto do asfalto refletivo.</p>
+                
                 <div class="solution-card">
-                    <h3>Simulação de Impacto</h3>
-                    <p>Aplicando a tecnologia do asfalto refletivo, a temperatura da superfície no ponto exposto poderia cair significativamente. A simulação abaixo considera uma redução de 7°C.</p>
-                    <div class="grafico-placeholder">
-                        <h4>Gráfico Comparativo</h4>
-                        <div class="bar-chart">
-                            <div class="bar" style="height: 59%; background-color: #e74c3c;"><span>Atual<br>59°C</span></div>
-                            <div class="bar" style="height: 52%; background-color: #3498db;"><span>Simulado<br>52°C</span></div>
-                            <div class="bar" style="height: 35%; background-color: #2ecc71;"><span>Arborizado<br>35°C</span></div>
-                        </div>
-                    </div>
-                    <p class="note">Isso resulta em mais conforto, menos gasto com ar-condicionado e uma cidade mais sustentável.</p>
+                    <h3>Tendência ao Longo dos 5 Dias</h3>
+                    <p>O gráfico de linha abaixo mostra a diferença constante de temperatura entre os dois ambientes durante o período de medição.</p>
+                    <canvas id="lineChart"></canvas>
+                </div>
+
+                <div class="solution-card">
+                    <h3>Simulação de Impacto para o Dia Selecionado</h3>
+                    <p>Veja a comparação da temperatura medida com a simulação do asfalto refletivo para o dia que você escolheu.</p>
+                    <canvas id="barChart"></canvas>
                 </div>
              </div>
         </section>
