@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REFRIGERIUM - Um Olhar Sobre as Ilhas de Calor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main>
+        <section id="abertura" class="full-screen">
+            <div class="content">
+                <h1>REFRIGERIUM</h1>
+                <p>Qual o impacto do asfalto que pisamos na temperatura da nossa cidade?</p>
+                <div class="scroll-indicator">
+                    <span>Role para descobrir</span>
+                    <div class="arrow">↓</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="arborizado" class="hidden">
+            <div class="content">
+                <h2>O Oásis Urbano: O Poder das Árvores</h2>
+                <p class="subtitle">Analisamos um ponto da Av. Visconde do Rio Claro protegido pela sombra.</p>
+                <div class="data-container">
+                    <div class="gallery">
+                        <img src="sat_arborizada.png" alt="Vista de satélite da área arborizada">
+                        <img src="term_arborizada.png" alt="Termômetro mostrando temperatura baixa">
+                    </div>
+                    <div class="data-card">
+                        <h3>Medição em Ambiente Arborizado</h3>
+                        <p><strong>Data do Teste:</strong> [Inserir Data]</p>
+                        <p><strong>Condição:</strong> Dia Quente e Ensolarado</p>
+                        <div class="temperature-display cool">
+                            <span class="label">Temperatura da Superfície</span>
+                            <span class="value">35°C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="problema" class="hidden">
+            <div class="content">
+                <h2>A Ilha de Calor: O Asfalto Sob o Sol</h2>
+                <p class="subtitle">Agora, veja o que acontece em um trecho sem arborização na mesma avenida.</p>
+                <div class="data-container reverse">
+                     <div class="gallery">
+                        <img src="sat_nao_arborizado.png" alt="Vista de satélite da área exposta">
+                        <img src="term_nao_arborizado.png" alt="Termômetro mostrando temperatura alta">
+                    </div>
+                    <div class="data-card">
+                        <h3>Medição em Ambiente Exposto</h3>
+                        <p><strong>Data do Teste:</strong> [Inserir Data]</p>
+                        <p><strong>Condição:</strong> Dia Quente e Ensolarado</p>
+                        <div class="temperature-display hot">
+                            <span class="label">Temperatura da Superfície</span>
+                            <span class="value">59°C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucao" class="hidden">
+             <div class="content">
+                <h2>A Solução: Asfalto Refletivo</h2>
+                <p class="subtitle">Existe uma tecnologia capaz de diminuir drasticamente este calor. Aqui mostramos a simulação.</p>
+                <div class="solution-card">
+                    <h3>Simulação de Impacto</h3>
+                    <p>Aplicando a tecnologia do asfalto refletivo, a temperatura da superfície no ponto exposto poderia cair significativamente. A simulação abaixo considera uma redução de 7°C.</p>
+                    <div class="grafico-placeholder">
+                        <h4>Gráfico Comparativo</h4>
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 59%; background-color: #e74c3c;"><span>Atual<br>59°C</span></div>
+                            <div class="bar" style="height: 52%; background-color: #3498db;"><span>Simulado<br>52°C</span></div>
+                            <div class="bar" style="height: 35%; background-color: #2ecc71;"><span>Arborizado<br>35°C</span></div>
+                        </div>
+                    </div>
+                    <p class="note">Isso resulta em mais conforto, menos gasto com ar-condicionado e uma cidade mais sustentável.</p>
+                </div>
+             </div>
+        </section>
+
+        <footer id="conclusao">
+            <div class="content">
+                <h2>Um futuro mais fresco para Rio Claro é possível.</h2>
+                <p>Projeto Integrador para a UNIVESP</p>
+                <p><strong>Equipe:</strong> Ana Julya, Liara De Oliveira, Rafael Maia, Felipe Milan, Leonardo Marcasso</p>
+                <p><strong>Orientação:</strong> E.E. Professor João Batista Leme</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
