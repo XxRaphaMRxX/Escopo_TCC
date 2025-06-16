@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- DADOS SIMULADOS (com Temperatura Ambiente e novo cálculo de Simulação) ---
+    // Registra o novo plugin globalmente para que todos os gráficos possam usá-lo
+    Chart.register(ChartDataLabels);
+
+    // --- DADOS SIMULADOS E CÁLCULO INICIAL ---
     const dadosMedidos = [
         { data: '18/06/2025', tempAmbiente: 32, tempArborizado: 35, tempExposto: 59 },
         { data: '19/06/2025', tempAmbiente: 29, tempArborizado: 31, tempExposto: 48 },
@@ -9,14 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { data: '22/06/2025', tempAmbiente: 34, tempArborizado: 36, tempExposto: 61 }
     ];
 
-    // Adiciona a temperatura simulada calculada a cada dia
     dadosMedidos.forEach(dado => {
         const excessoCalor = dado.tempExposto - dado.tempAmbiente;
-        const reducao = excessoCalor * 0.25; // Redução de 25%
+        const reducao = excessoCalor * 0.25;
         dado.tempSimulado = parseFloat((dado.tempExposto - reducao).toFixed(1));
     });
 
-    // --- ELEMENTOS DO HTML (DOM) ---
+    // --- LÓGICA PARA A SEÇÃO INTERATIVA (DIA A DIA) ---
     const dayButtons = document.querySelectorAll('.day-btn');
     const dataArborizadoEl = document.getElementById('data-arborizado');
     const tempAmbienteArborizadoEl = document.getElementById('ambiente-arborizado');
@@ -25,13 +27,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const tempAmbienteExpostoEl = document.getElementById('ambiente-exposto');
     const tempExpostoEl = document.getElementById('temp-exposto');
 
-    // ... (O restante do código, incluindo a configuração dos gráficos e a lógica de atualização, permanece o mesmo) ...
-    // --- CONFIGURAÇÃO DOS GRÁFICOS ---
-    const lineChartCtx = document.getElementById('lineChart').getContext('2d');
-    const barChartCtx = document.getElementById('barChart').getContext('2d');
-    let barChart;
+    function updateDayDisplay(dayIndex) {
+        const selectedData = dadosMedidos[dayIndex];
+        dataArborizadoEl.innerText = selectedData.data;
+        tempAmbienteArborizadoEl.innerText = `${selectedData.tempAmbiente}°C`;
+        tempArborizadoEl.innerText = `${selectedData.tempArborizado}°C`;
+        dataExpostoEl.innerText = selectedData.data;
+        tempAmbienteExpostoEl.innerText = `${selectedData.tempAmbiente}°C`;
+        tempExpostoEl.innerText = `${selectedData.tempExposto}°C`;
+    }
 
-    // 1. CRIAR GRÁFICO DE LINHA (mostra todos os dias)
+    dayButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            dayButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            updateDayDisplay(button.getAttribute('data-day'));
+        });
+    });
+    updateDayDisplay(0); // Inicia com o primeiro dia selecionado
+
+    // --- LÓGICA PARA OS GRÁFICOS GERAIS ---
+    
+    // 1. Gráfico de Linha (Tendência)
+    const lineChartCtx = document.getElementById('lineChart').getContext('2d');
     new Chart(lineChartCtx, {
         type: 'line',
         data: {
@@ -54,60 +72,89 @@ document.addEventListener('DOMContentLoaded', () => {
                 borderColor: '#f39c12',
                 backgroundColor: '#f39c12',
                 tension: 0.1,
-                borderDash: [5, 5] // Linha tracejada
+                borderDash: [5, 5]
             }]
         }
     });
     
-    // --- FUNÇÕES DE ATUALIZAÇÃO ---
-    function updateDisplay(dayIndex) {
-        const selectedData = dadosMedidos[dayIndex];
+    // 2. Gráfico de Barras (Médias)
+    const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+    const avgArborizado = average(dadosMedidos.map(d => d.tempArborizado));
+    const avgExposto = average(dadosMedidos.map(d => d.tempExposto));
 
-        // Atualiza os cartões de temperatura
-        dataArborizadoEl.innerText = selectedData.data;
-        tempAmbienteArborizadoEl.innerText = `${selectedData.tempAmbiente}°C`;
-        tempArborizadoEl.innerText = `${selectedData.tempArborizado}°C`;
-        dataExpostoEl.innerText = selectedData.data;
-        tempAmbienteExpostoEl.innerText = `${selectedData.tempAmbiente}°C`;
-        tempExpostoEl.innerText = `${selectedData.tempExposto}°C`;
-
-        // Atualiza o gráfico de barras
-        const barChartData = {
-            labels: ['Arborizado', 'Exposto (Atual)', 'Exposto (Simulado)'],
+    const averageBarCtx = document.getElementById('averageBarChart').getContext('2d');
+    new Chart(averageBarCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Ponto Arborizado', 'Ponto Exposto'],
             datasets: [{
-                label: 'Temperatura da Superfície (°C)',
-                data: [selectedData.tempArborizado, selectedData.tempExposto, selectedData.tempSimulado],
-                backgroundColor: ['#2ecc71', '#e74c3c', '#3498db'],
+                label: 'Média de Temperatura (°C)',
+                data: [avgArborizado.toFixed(1), avgExposto.toFixed(1)],
+                backgroundColor: ['#2ecc71', '#e74c3c'],
             }]
-        };
-
-        if (barChart) {
-            barChart.data = barChartData;
-            barChart.update();
-        } else {
-            barChart = new Chart(barChartCtx, { type: 'bar', data: barChartData, options: { plugins: { legend: { display: false } } } });
+        },
+        options: { 
+            indexAxis: 'y', 
+            plugins: { 
+                legend: { display: false },
+                datalabels: {
+                    color: '#ffffff',
+                    anchor: 'center',
+                    align: 'center',
+                    font: { weight: 'bold', size: 14 },
+                    formatter: function(value) { return value + '°C'; }
+                }
+            } 
         }
-    }
-
-    // --- EVENT LISTENERS (INTERATIVIDADE) ---
-    dayButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            dayButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const dayIndex = button.getAttribute('data-day');
-            updateDisplay(dayIndex);
-        });
     });
 
-    updateDisplay(0);
+    // --- LÓGICA PARA O GRÁFICO FINAL DE SIMULAÇÃO ---
+    const avgSimulado = average(dadosMedidos.map(d => d.tempSimulado));
+    const finalComparisonCtx = document.getElementById('finalComparisonChart').getContext('2d');
+    new Chart(finalComparisonCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Arborizado (Média)', 'Exposto (Média Atual)', 'Exposto (Média Simulada)'],
+            datasets: [{
+                label: 'Temperatura Média da Superfície (°C)',
+                data: [avgArborizado.toFixed(1), avgExposto.toFixed(1), avgSimulado.toFixed(1)],
+                backgroundColor: ['#2ecc71', '#e74c3c', '#3498db'],
+            }]
+        },
+        // ATUALIZAÇÃO AQUI PARA ADICIONAR TÍTULO
+        options: {
+            plugins: {
+                legend: { 
+                    display: false 
+                },
+                // Adiciona um título principal ao gráfico
+                title: {
+                    display: true,
+                    text: 'Comparativo de Temperaturas Médias',
+                    font: {
+                        size: 18
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                },
+                datalabels: {
+                    color: '#ffffff',
+                    anchor: 'center',
+                    align: 'center',
+                    font: { weight: 'bold', size: 14 },
+                    formatter: function(value) { return value + '°C'; }
+                }
+            }
+        }
+    });
 
     // --- ANIMAÇÃO DE SCROLL ---
     const hiddenElements = document.querySelectorAll('.hidden');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('show');
         });
     }, { threshold: 0.1 });
     hiddenElements.forEach((el) => observer.observe(el));

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
 
@@ -27,16 +28,15 @@
                 <p class="subtitle">Entenda a ideia por trás do projeto REFRIGERIUM.</p>
                 <div class="context-card">
                     <p>As cidades estão cada vez mais quentes, um fenômeno conhecido como <strong>"Ilhas de Calor Urbanas"</strong>. Em Rio Claro, o asfalto escuro da movimentada Avenida Visconde do Rio Claro absorve o calor solar, elevando perigosamente a temperatura da superfície.</p>
-                    <p>Inspirado por soluções como o projeto europeu <strong>"Life Heatland"</strong>, o REFRIGERIUM busca conscientizar a população sobre este problema. Através de medições reais e simulações, demonstramos de forma visual e interativa como uma tecnologia simples, o <strong>asfalto refletivo</strong>, poderia criar um ambiente urbano mais fresco e sustentável para todos.</p>
+                    <p>Inspirado por soluções como o projeto europeu <strong>"Life Heatland"</strong>, o REFRIGERIUM busca conscientizar a população sobre este problem. Através de medições reais e simulações, demonstramos de forma visual e interativa como uma tecnologia simples, o <strong>asfalto refletivo</strong>, poderia criar um ambiente urbano mais fresco e sustentável para todos.</p>
                 </div>
             </div>
         </section>
 
         <section id="analise-dados" class="hidden">
             <div class="content">
-                <h2>Análise Comparativa das Medições</h2>
-                <p class="subtitle">Coletamos dados por 5 dias em dois pontos da avenida. Selecione um dia para ver os resultados.</p>
-                
+                <h2>Análise Interativa dos Dados Coletados</h2>
+                <p class="subtitle">Coletamos dados por 5 dias. Selecione um dia para ver os resultados detalhados.</p>
                 <div class="day-selector">
                     <button class="day-btn active" data-day="0">Dia 1</button>
                     <button class="day-btn" data-day="1">Dia 2</button>
@@ -44,82 +44,82 @@
                     <button class="day-btn" data-day="3">Dia 4</button>
                     <button class="day-btn" data-day="4">Dia 5</button>
                 </div>
-
                 <div class="data-display-grid">
                     <div class="data-card">
                         <h3><span class="tree-icon">🌳</span> Ambiente Arborizado</h3>
                         <p><strong>Data:</strong> <span id="data-arborizado">--</span></p>
                         <p><strong>Temp. Ambiente:</strong> <span id="ambiente-arborizado">--°C</span></p>
-                        <div class="temperature-display cool">
-                            <span class="label">Temperatura da Superfície</span>
-                            <span class="value" id="temp-arborizado">--°C</span>
-                        </div>
+                        <div class="temperature-display cool"><span class="label">Superfície</span><span class="value" id="temp-arborizado">--°C</span></div>
                     </div>
                     <div class="data-card">
                         <h3><span class="sun-icon">☀️</span> Ambiente Exposto</h3>
                         <p><strong>Data:</strong> <span id="data-exposto">--</span></p>
                         <p><strong>Temp. Ambiente:</strong> <span id="ambiente-exposto">--°C</span></p>
-                        <div class="temperature-display hot">
-                            <span class="label">Temperatura da Superfície</span>
-                            <span class="value" id="temp-exposto">--°C</span>
-                        </div>
+                        <div class="temperature-display hot"><span class="label">Superfície</span><span class="value" id="temp-exposto">--°C</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="solucao" class="hidden">
-             <div class="content">
-                <h2>Visualizando os Dados e a Solução</h2>
-                <p class="subtitle">Gráficos para entender as tendências e o impacto do asfalto refletivo.</p>
-                
-                <div class="solution-card">
-                    <h3>Tendência ao Longo dos 5 Dias</h3>
-                    <p>O gráfico de linha abaixo mostra a diferença constante de temperatura entre os dois ambientes durante o período de medição.</p>
+        <section id="graficos-gerais" class="hidden">
+            <div class="content">
+                <h2>Resultados Gerais: Uma Visão Completa</h2>
+                <p class="subtitle">Os gráficos abaixo resumem os dados dos 5 dias de medição.</p>
+                <div class="data-card">
+                    <h3>Tendência de Temperatura Durante 5 Dias</h3>
+                    <p>Veja como a temperatura da superfície se comportou ao longo do tempo, mostrando a diferença constante entre os locais.</p>
                     <canvas id="lineChart"></canvas>
                 </div>
-
-                <div class="solution-card">
-                    <h3>Simulação de Impacto para o Dia Selecionado</h3>
-                    <p>Veja a comparação da temperatura medida com a simulação do asfalto refletivo para o dia que você escolheu.</p>
-                    <canvas id="barChart"></canvas>
+                <div class="data-card">
+                    <h3>Média Geral de Temperatura</h3>
+                    <p>Este gráfico mostra a temperatura média de cada ponto, resumindo o impacto do sol no asfalto em um único número.</p>
+                    <canvas id="averageBarChart"></canvas>
                 </div>
-             </div>
+            </div>
         </section>
 
-        <section id="asfalto-frio" class="hidden">
+        <section id="intro-asfalto-frio" class="hidden">
             <div class="content">
-                <h2>A Tecnologia do Asfalto Frio</h2>
-                <p class="subtitle">Entenda como essa solução funciona e como calculamos a melhoria.</p>
-                
+                <h2>A Solução: Tecnologia do Asfalto Frio</h2>
+                <p class="subtitle">Diante do problema, como podemos intervir?</p>
+                <div class="explanation-card single">
+                    <h3>O Que é o Asfalto Frio (Refletivo)?</h3>
+                    <p>Inspirado em projetos de sucesso como o <strong>Life Heatland</strong>, o asfalto frio utiliza agregados de cores claras e ligantes especiais que refletem a luz solar em vez de absorvê-la. Essa tecnologia, também conhecida como "pavimento frio", é uma solução eficiente para mitigar as ilhas de calor urbanas, diminuindo a temperatura da superfície e do ar ao redor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulacao-impacto" class="hidden">
+            <div class="content">
+                <h2>Simulando o Impacto na Av. Visconde</h2>
+                <p class="subtitle">Aplicamos a lógica do asfalto frio aos nossos dados para projetar a melhoria.</p>
                 <div class="explanation-container">
                     <div class="explanation-card">
-                        <h3>O Que é o Asfalto Frio?</h3>
-                        <p>Inspirado no projeto <strong>Life Heatland</strong>, o asfalto frio (ou refletivo) substitui componentes escuros por materiais de cores claras. Isso aumenta sua capacidade de refletir a luz solar (albedo), fazendo com que ele absorva muito menos calor que o asfalto convencional.</p>
-                    </div>
-
-                    <div class="explanation-card">
-                        <h3>Como Calculamos a Melhoria?</h3>
-                        <p>Com base nos resultados do Life Heatland, nossa simulação aplica uma redução de <strong>25% sobre o excesso de calor</strong> (a diferença entre a temperatura do asfalto e a do ar). Veja o exemplo do dia mais quente:</p>
+                        <h3>Lógica do Cálculo</h3>
+                        <p>Com base nos resultados do projeto <strong>Life Heatland</strong>, nossa simulação aplica uma **redução direta de 7°C** sobre a temperatura da superfície do asfalto. Este cálculo é feito separadamente para cada cenário.</p>
                         <div class="calculation-steps">
-                           <p><span>Passo 1:</span> Temp. Asfalto (61°C) - Temp. Ar (34°C) = <strong>27°C de Excesso</strong></p>
-                           <p><span>Passo 2:</span> 25% de 27°C = <strong>Redução de 6.75°C</strong></p>
-                           <p><span>Passo 3:</span> 61°C - 6.75°C = <strong>Nova Temp. de 54.25°C</strong></p>
+                           <p><span>Cenário Exposto:</span> Média de 53.6°C - 7°C = <strong>Nova Média de 46.6°C</strong></p>
+                           <p><span>Cenário Arborizado:</span> Média de 33.0°C - 7°C = <strong>Nova Média de 26.0°C</strong></p>
                         </div>
+                    </div>
+                    <div class="data-card">
+                        <h3>Gráfico Comparativo Final (Médias)</h3>
+                        <p>O gráfico mostra o potencial de redução nos dois cenários, destacando o impacto significativo no asfalto sob sol pleno.</p>
+                        <canvas id="finalComparisonChart"></canvas>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <footer id="conclusao">
+            <div class="content">
+                <h2>Um futuro mais fresco para Rio Claro é possível.</h2>
+                <p>Projeto Integrador para a FIEB</p>
+                <p><strong>Equipe:</strong> Ana Julya, Liara De Oliveira, Rafael Maia, Felipe Milan, Leonardo Marcasso</p>
+                <p><strong>Orientação:</strong> E.E. Professor João Batista Leme</p>
+            </div>
+        </footer>
     </main>
-
-    <footer id="conclusao">
-        <div class="content">
-            <h2>Um futuro mais fresco para Rio Claro é possível.</h2>
-            <p>Projeto Integrador para a UNIVESP</p>
-            <p><strong>Equipe:</strong> Ana Julya, Liara De Oliveira, Rafael Maia, Felipe Milan, Leonardo Marcasso</p>
-            <p><strong>Orientação:</strong> E.E. Professor João Batista Leme</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>

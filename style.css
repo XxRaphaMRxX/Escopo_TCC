@@ -207,30 +207,59 @@ p {
     background-color: var(--hot-color);
 }
 
-/* Seção da Solução e Gráficos */
-.solution-card {
-    width: 100%;
+/* Seções de Gráficos e Explicações */
+#graficos-gerais,
+#simulacao-impacto {
+    background-color: #e8eaf6;
+}
+
+#intro-asfalto-frio {
+    background-color: var(--light-bg);
+}
+
+.data-card {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.data-card:last-child {
+    margin-bottom: 0;
+}
+
+.data-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.data-card p {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.explanation-card.single {
+    max-width: 800px;
+    margin: 0 auto;
     background-color: var(--card-bg);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
 }
 
-.solution-card:last-child {
-    margin-bottom: 0;
+.explanation-card.single p {
+    text-align: justify;
+    text-align-last: center;
 }
 
-/* Seção de Explicação do Asfalto Frio */
-#asfalto-frio {
-    background-color: #e8eaf6;
+#intro-asfalto-frio .explanation-card h3 {
+     text-align: center;
 }
+
 
 .explanation-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    text-align: left;
+    align-items: start;
 }
 
 .explanation-card {
@@ -238,11 +267,13 @@ p {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .explanation-card h3 {
     margin-bottom: 15px;
     color: var(--cool-color);
+    text-align: center;
 }
 
 .calculation-steps {
@@ -257,6 +288,7 @@ p {
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 0.95rem;
+    text-align: left;
 }
 
 .calculation-steps p:last-child {
