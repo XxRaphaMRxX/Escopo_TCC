@@ -1,0 +1,38 @@
+[
+    {
+        "nome": "Dia 1 (18/06/2025)",
+        "tempAmbiente": 32,
+        "tempArborizado": 35,
+        "tempExposto": 59
+    },
+    {
+        "nome": "Dia 2 (19/06/2025)",
+        "tempAmbiente": 29,
+        "tempArborizado": 31,
+        "tempExposto": 48
+    },
+    {
+        "nome": "Dia 3 (20/06/2025)",
+        "tempAmbiente": 31,
+        "tempArborizado": 33,
+        "tempExposto": 55
+    },
+    {
+        "nome": "Dia 4 (21/06/2025)",
+        "tempAmbiente": 28,
+        "tempArborizado": 30,
+        "tempExposto": 45
+    },
+    {
+        "nome": "Dia 5 (22/06/2025)",
+        "tempAmbiente": 34,
+        "tempArborizado": 36,
+        "tempExposto": 61
+    },
+    {
+        "nome": "22/06",
+        "tempAmbiente": 33.33,
+        "tempArborizado": 35.57,
+        "tempExposto": 54.33
+    }
+]
